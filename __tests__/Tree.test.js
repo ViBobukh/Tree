@@ -1,4 +1,6 @@
 const Tree = require('../Tree').Tree;
+const Node = require('../Node').Node;
+
 
 describe('Test Tree', () => {
     describe('Test getById method', () => {
@@ -24,11 +26,9 @@ describe('Test Tree', () => {
     describe('Test updateAllValues method', () => {
         it('Positive flow', () => {
             const tree = new Tree('1', 'first');
-            tree.add('second', '1');
-            expect(tree.updateAllValue('ooo')).toEqual([{
-                "children":
-                    [], "id": "1_1", "value": "ooo"
-            }]);
+            tree.rootNode = {setRecursion: jest.fn()};
+            tree.updateAllValue('ooo');
+            expect(tree.rootNode.setRecursion).toBeCalledWith('ooo');
         })
     });
     describe('Test delete method', () => {
@@ -36,12 +36,12 @@ describe('Test Tree', () => {
             const tree = new Tree('1', 'first');
             tree.add('second', '1');
             tree.add('next', '1_1');
-            expect(tree.delete('1_1_1')).toStrictEqual([]);
+            expect(tree.delete('1_1_1')).toBe(true);
         })
         it('Negative flow', () => {
             const tree = new Tree('1', 'first');
             tree.add('second', '1');
-            expect(tree.delete('1')).toBe('Forbid delete root node');
+            expect(tree.delete('1')).toBe(false);
         })
     });
 })

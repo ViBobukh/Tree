@@ -32,7 +32,8 @@ describe('Test Node', () => {
             const value = 'second';
             const node = new Node('1', 'first');
             node.addChildren(value);
-            expect(node.setRecursion('asd')).toEqual([{id, value: 'asd', children: []}])
+            node.setRecursion('asd')
+            expect(node.children).toEqual([{id, value: 'asd', children: []}])
         });
     });
 })

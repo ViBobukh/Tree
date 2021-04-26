@@ -9,16 +9,14 @@ class Tree {
     }
 
     /**
-     * @param value {string}
-     * @param parentId {string}
-     * @returns {string|undefined}
+     * @param {string} value
+     * @param {string} parentId
+     * @return {string} id
      */
     add(value, parentId) {
         if (Number(parentId[0]) === 1) {
             let currentNode = this.getById(parentId);
             return currentNode.addChildren(value);
-        } else {
-            return undefined;
         }
     }
 
@@ -46,28 +44,28 @@ class Tree {
 
     /**
      * @param value {string}
-     * @returns {Array}
      */
     updateAllValue(value) {
         let currentNode = this.rootNode;
         currentNode.value = value;
-        return currentNode.setRecursion(value);
+        currentNode.setRecursion(value);
     }
 
     /**
      * @param id {string}
-     * @returns {string|*[]}
+     * @returns {boolean}
      */
     delete(id) {
         if (id !== '1') {
             let parentId = id.substr(0, id.length - 2);
             let parentNode = this.getById(parentId);
 
-            return parentNode.children.filter((i) => {
+            parentNode.children.filter((i) => {
                 return i.id !== id
             });
+            return true;
         } else {
-            return 'Forbid delete root node'
+            return false;
         }
     }
 }

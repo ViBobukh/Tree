@@ -11,14 +11,12 @@ class Node {
     /**
      * Function for change all value
      * @param value
-     * @returns {array}
      */
     setRecursion(value) {
         this.value = value;
         this.children.forEach((child) => {
             child.setRecursion(value);
         });
-        return this.children;
     }
 
     /**
@@ -37,7 +35,7 @@ class Node {
      * @returns {object}
      */
     getById(id) {
-        return this.children.find((i) => i.id === id)
+        return this.children.find((i) => i.id === id);
     }
 }
 
